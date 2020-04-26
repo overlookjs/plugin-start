@@ -1,6 +1,6 @@
 {
   "name": "@overlook/plugin-start",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Overlook framework start plugin",
   "main": "index.js",
   "files": [
