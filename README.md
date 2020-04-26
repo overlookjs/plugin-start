@@ -11,7 +11,76 @@ Part of the [Overlook framework](https://overlookjs.github.io/).
 
 ## Usage
 
-This module is under development and not ready for use yet.
+### Methods
+
+This plugin adds the following methods to a Route:
+
+* `[START]`
+* `[START_ROUTE]`
+* `[START_CHILDREN]`
+* `[STOP]`
+* `[STOP_ROUTE]`
+* `[STOP_CHILDREN]`
+
+`[START]` calls `[START_ROUTE]` and then `[START_CHILDREN]`, which in turn calls `[START]` on all child routes. So calling `[START]` on root route will cascade calls to `[START_ROUTE]` to every route in the routes tree which uses this plugin.
+
+`[STOP]` works the same, except shutdown occurs in reverse order - children are stopped before parents.
+
+All methods are async (i.e. can return promises).
+
+### How to use
+
+If you want to perform some action when the application starts/stops, extend `[START_ROUTE]` and `[STOP_ROUTE]` methods.
+
+e.g. To start/stop an [express](https://expressjs.com/) server when application starts/stops:
+
+```js
+const Route = require('@overlook/route');
+const startPlugin = require('@overlook/plugin-start');
+const express = require('express');
+
+const StartStopRoute = Route.extend( startPlugin );
+const { START_ROUTE, STOP_ROUTE } = startPlugin;
+
+const SERVER = Symbol('SERVER');
+const PORT = 3000;
+
+class ServerRoute extends StartStopRoute {
+  [START_ROUTE]() {
+    const expressApp = express();
+
+    expressApp.use( (req, res) => {
+      // Overlook uses a single request object
+      // rather than `req` + `res` pair
+      req.res = res;
+      this.handle( req );
+    } );
+
+    return new Promise( (resolve, reject) => {
+      this[SERVER] = expressApp.listen(
+        PORT,
+        (err) => {
+          if ( err ) return reject( err );
+          resolve();
+        }
+      );
+    });
+  }
+
+  [STOP_ROUTE]() {
+    return new Promise( (resolve, reject) => {
+      this[SERVER].close( (err) => {
+        if ( err ) return reject( err );
+        resolve();
+      } );
+    } );
+  }
+}
+```
+
+When the application is loaded, you can then call `router[START]` to start it serving requests.
+
+NB [@overlook/plugin-http](https://www.npmjs.com/package/@overlook/plugin-http) does much the same as above example.
 
 ## Versioning
 
