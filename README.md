@@ -91,7 +91,7 @@ class ServerRoute extends StartStopRoute {
 
 When the application is loaded, you can then call `router[START]` to start it serving requests.
 
-NB [@overlook/plugin-http](https://www.npmjs.com/package/@overlook/plugin-http) does much the same as above example.
+NB [@overlook/plugin-serve-http](https://www.npmjs.com/package/@overlook/plugin-serve-http) does much the same as above example.
 
 ## Versioning
 
