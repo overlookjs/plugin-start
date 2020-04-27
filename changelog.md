@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.2
+
+Bug fixes:
+
+* Init in `[INIT_ROUTE]` not `.init`
+
+Dependencies:
+
+* Update `@overlook/route` dependency
+
+Docs:
+
+* Missing changelog
+
 ## 0.1.1
 
 Docs:
