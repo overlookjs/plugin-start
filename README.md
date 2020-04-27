@@ -46,7 +46,12 @@ const SERVER = Symbol('SERVER');
 const PORT = 3000;
 
 class ServerRoute extends StartStopRoute {
-  [START_ROUTE]() {
+  async [START_ROUTE]() {
+    // Delegate to superiors
+    await super[START_ROUTE]();
+
+    // Create express app
+    // and wait for server to start
     const expressApp = express();
 
     expressApp.use( (req, res) => {
@@ -56,7 +61,7 @@ class ServerRoute extends StartStopRoute {
       this.handle( req );
     } );
 
-    return new Promise( (resolve, reject) => {
+    await new Promise( (resolve, reject) => {
       this[SERVER] = expressApp.listen(
         PORT,
         (err) => {
@@ -67,13 +72,19 @@ class ServerRoute extends StartStopRoute {
     });
   }
 
-  [STOP_ROUTE]() {
-    return new Promise( (resolve, reject) => {
+  async [STOP_ROUTE]() {
+    // Shutdown server
+    await new Promise( (resolve, reject) => {
       this[SERVER].close( (err) => {
         if ( err ) return reject( err );
         resolve();
       } );
     } );
+
+    // Delegate to superiors
+    // NB After server shutdown so order of
+    // stopping is reverse of start up.
+    await super[STOP_ROUTE]();
   }
 }
 ```
