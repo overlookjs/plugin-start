@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@overlook/plugin": "^0.2.3",
-    "@overlook/route": "^0.4.1"
+    "@overlook/route": "^0.5.1"
   },
   "devDependencies": {
     "@overlookmotel/eslint-config": "^7.1.2",
