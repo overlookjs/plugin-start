@@ -56,9 +56,7 @@ class ServerRoute extends StartStopRoute {
 
     expressApp.use( (req, res) => {
       // Overlook uses a single request object
-      // rather than `req` + `res` pair
-      req.res = res;
-      this.handle( req );
+      this.handle( { req, res } );
     } );
 
     await new Promise( (resolve, reject) => {
