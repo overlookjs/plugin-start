@@ -1,5 +1,6 @@
 /* --------------------
  * @overlook/plugin-start module
+ * CJS entry point
  * ------------------*/
 
 'use strict';

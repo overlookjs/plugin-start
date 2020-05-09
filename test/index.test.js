@@ -27,15 +27,6 @@ describe('plugin', () => {
 	it('is a Plugin', () => {
 		expect(startPlugin).toBeInstanceOf(Plugin);
 	});
-
-	describe('exposes symbols', () => {
-		it.each([
-			'START', 'START_ROUTE', 'START_CHILDREN',
-			'STOP', 'STOP_ROUTE', 'STOP_CHILDREN'
-		])('%s', (name) => {
-			expect(typeof startPlugin[name]).toBe('symbol');
-		});
-	});
 });
 
 const StartRoute = Route.extend(startPlugin);
