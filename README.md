@@ -40,7 +40,7 @@ const startPlugin = require('@overlook/plugin-start');
 const express = require('express');
 
 const StartStopRoute = Route.extend( startPlugin );
-const { START_ROUTE, STOP_ROUTE } = startPlugin;
+const { START_ROUTE, STOP_ROUTE, START, STOP } = startPlugin;
 
 const SERVER = Symbol('SERVER');
 const PORT = 3000;
@@ -85,9 +85,16 @@ class ServerRoute extends StartStopRoute {
     await super[STOP_ROUTE]();
   }
 }
-```
 
-When the application is loaded, you can then call `router[START]` to start it serving requests.
+const app = new ServerRoute();
+
+// Start app
+await app.init();
+await app[START]();
+
+// Later, stop app
+await app[STOP]();
+```
 
 NB [@overlook/plugin-serve-http](https://www.npmjs.com/package/@overlook/plugin-serve-http) does much the same as above example.
 
