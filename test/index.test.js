@@ -49,14 +49,14 @@ describe('methods', () => {
 	describe('[START]', () => {
 		it('calls [START_ROUTE]', async () => {
 			route[START_ROUTE] = spy();
-			route.init();
+			await route.init();
 			await route[START]();
 			expect(route[START_ROUTE]).toHaveBeenCalledTimes(1);
 		});
 
 		it('calls [START_CHILDREN]', async () => {
 			route[START_CHILDREN] = spy();
-			route.init();
+			await route.init();
 			await route[START]();
 			expect(route[START_CHILDREN]).toHaveBeenCalledTimes(1);
 		});
@@ -66,7 +66,7 @@ describe('methods', () => {
 			route[START_ROUTE] = spy(() => deferred.promise);
 			route[START_CHILDREN] = spy();
 
-			route.init();
+			await route.init();
 			const promise = route[START]();
 			expect(route[START_ROUTE]).toHaveBeenCalledTimes(1);
 			await wait();
@@ -86,7 +86,7 @@ describe('methods', () => {
 			child2[START] = spy();
 			route.attachChild(child2);
 
-			route.init();
+			await route.init();
 			await route[START]();
 			expect(child1[START]).toHaveBeenCalledTimes(1);
 			expect(child2[START]).toHaveBeenCalledTimes(1);
@@ -101,7 +101,7 @@ describe('methods', () => {
 			child2[START] = spy();
 			route.attachChild(child2);
 
-			route.init();
+			await route.init();
 			const promise = route[START]();
 			await wait();
 			expect(child1[START]).toHaveBeenCalledTimes(1);
@@ -115,8 +115,8 @@ describe('methods', () => {
 			let isStarted = false;
 			route[START_ROUTE] = () => { isStarted = true; };
 			route[STOP_ROUTE] = () => { isStarted = false; };
-			route.init();
 
+			await route.init();
 			await route[START]();
 			expect(isStarted).toBeTrue();
 			await route[STOP]();
@@ -126,8 +126,8 @@ describe('methods', () => {
 		});
 
 		describe('errors if', () => {
-			beforeEach(() => {
-				route.init();
+			beforeEach(async () => {
+				await route.init();
 			});
 
 			it('call [START] when already started', async () => {
@@ -151,8 +151,8 @@ describe('methods', () => {
 
 		describe('error tags error with correct route path', () => {
 			describe('on root', () => {
-				beforeEach(() => {
-					route.init();
+				beforeEach(async () => {
+					await route.init();
 				});
 
 				it('in [START_ROUTE]', async () => {
@@ -168,10 +168,10 @@ describe('methods', () => {
 
 			describe('on child', () => {
 				let child;
-				beforeEach(() => {
+				beforeEach(async () => {
 					child = new StartRoute({name: 'childish'});
 					route.attachChild(child);
-					route.init();
+					await route.init();
 				});
 
 				it('in [START_ROUTE]', async () => {
@@ -190,7 +190,7 @@ describe('methods', () => {
 	describe('[STOP]', () => {
 		it('calls [STOP_ROUTE]', async () => {
 			route[STOP_ROUTE] = spy();
-			route.init();
+			await route.init();
 			await route[START]();
 			await route[STOP]();
 			expect(route[STOP_ROUTE]).toHaveBeenCalledTimes(1);
@@ -198,7 +198,7 @@ describe('methods', () => {
 
 		it('calls [STOP_CHILDREN]', async () => {
 			route[STOP_CHILDREN] = spy();
-			route.init();
+			await route.init();
 			await route[START]();
 			await route[STOP]();
 			expect(route[STOP_CHILDREN]).toHaveBeenCalledTimes(1);
@@ -209,7 +209,7 @@ describe('methods', () => {
 			route[STOP_ROUTE] = spy();
 			route[STOP_CHILDREN] = spy(() => deferred.promise);
 
-			route.init();
+			await route.init();
 			await route[START]();
 			const promise = route[STOP]();
 			expect(route[STOP_CHILDREN]).toHaveBeenCalledTimes(1);
@@ -230,7 +230,7 @@ describe('methods', () => {
 			child2[STOP] = spy();
 			route.attachChild(child2);
 
-			route.init();
+			await route.init();
 			await route[START]();
 			await route[STOP]();
 			expect(child1[STOP]).toHaveBeenCalledTimes(1);
@@ -246,7 +246,7 @@ describe('methods', () => {
 			child2[STOP] = spy();
 			route.attachChild(child2);
 
-			route.init();
+			await route.init();
 			await route[START]();
 			const promise = route[STOP]();
 			await wait();
@@ -261,8 +261,8 @@ describe('methods', () => {
 			let isStarted = false;
 			route[START_ROUTE] = () => { isStarted = true; };
 			route[STOP_ROUTE] = () => { isStarted = false; };
-			route.init();
 
+			await route.init();
 			await route[START]();
 			expect(isStarted).toBeTrue();
 			await route[STOP]();
@@ -270,8 +270,8 @@ describe('methods', () => {
 		});
 
 		describe('errors if', () => {
-			beforeEach(() => {
-				route.init();
+			beforeEach(async () => {
+				await route.init();
 			});
 
 			it('call [STOP] when not started', async () => {
@@ -295,7 +295,7 @@ describe('methods', () => {
 		describe('error tags error with correct route path', () => {
 			describe('on root', () => {
 				beforeEach(async () => {
-					route.init();
+					await route.init();
 					await route[START]();
 				});
 
@@ -315,7 +315,7 @@ describe('methods', () => {
 				beforeEach(async () => {
 					child = new StartRoute({name: 'childish'});
 					route.attachChild(child);
-					route.init();
+					await route.init();
 					await route[START]();
 				});
 
