@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.3
+
+Features:
+
+* ESM export
+
+Refactor:
+
+* Use `invariant`
+
+Dependencies:
+
+* Update `@overlook/route` + `@overlook/plugin` dependencies
+
+Dev:
+
+* Update dev dependencies
+
+Docs:
+
+* Improve example
+
 ## 0.1.2
 
 Bug fixes:
