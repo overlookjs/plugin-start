@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.4
+
+Refactor:
+
+* Shorten code
+
+Dependencies:
+
+* Update `@overlook/route` + `@overlook/plugin` dependencies
+
+Tests:
+
+* Test plugin subclasses input
+* Rename test
+* Code coverage cover ESM export
+
+Dev:
+
+* Lint `.mjs` files
+* Make `test-prod` NPM script ESM compatible
+* Update dev dependencies
+
 ## 0.1.3
 
 Features:
