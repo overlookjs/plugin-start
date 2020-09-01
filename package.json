@@ -27,8 +27,8 @@
     "url": "https://github.com/overlookjs/plugin-start/issues"
   },
   "dependencies": {
-    "@overlook/plugin": "^0.3.0",
-    "@overlook/route": "^0.6.3",
+    "@overlook/plugin": "^0.4.1",
+    "@overlook/route": "^0.6.4",
     "simple-invariant": "^2.0.0"
   },
   "devDependencies": {
