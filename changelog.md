@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.5
+
+Minor:
+
+* Drop support for Node v13
+
+Dependencies:
+
+* Update `@overlook/route` + `@overlook/plugin` dependencies
+
+Dev:
+
+* Update dev dependencies
+
+Tests:
+
+* Rename var [refactor]
+
 ## 0.1.4
 
 Refactor:
